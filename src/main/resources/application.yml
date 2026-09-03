@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: phi4-mini-financial-email-ai
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: ${OLLAMA_MODEL:phi4-mini}
+          temperature: 0.0
+          num-ctx: 4096
+          num-predict: 500
+
+server:
+  port: ${SERVER_PORT:8080}
