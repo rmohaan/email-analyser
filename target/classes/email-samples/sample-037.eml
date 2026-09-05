@@ -1,0 +1,18 @@
+Return-Path: <customer037@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.38])
+ by mx.support.example.com with ESMTPS id SAMPLE037;
+ Mon, 16 Mar 2026 14:15:00 +0530
+From: Synthetic Customer 037 <customer037@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Mon, 16 Mar 2026 08:15:00 +0000
+Message-ID: <sample-037-2026@example.com>
+Subject: Dividend payment enquiry #037
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<p>Dear Support Team,</p>
+<p>The dividend from Nippon India Small Cap Fund declared last month has not reached my bank account. Please verify folio 10293003.</p>
+<p>Regards,<br>Synthetic Customer 037</p>
+</body></html>

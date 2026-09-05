@@ -1,0 +1,26 @@
+Return-Path: <customer006@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.7])
+ by mx.support.example.com with ESMTPS id SAMPLE006;
+ Tue, 13 Jan 2026 12:15:00 +0530
+From: Synthetic Customer 006 <customer006@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Tue, 13 Jan 2026 06:15:00 +0000
+Message-ID: <sample-006-2026@example.com>
+Subject: SIP instalment status #006
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="alt-sample-006"
+
+--alt-sample-006
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+My SIP instalment in Parag Parikh Flexi Cap Fund dated 2026-01-12 is not showing in folio 10047514. Kindly check its status. PAN: GSPEQ0582O.
+
+Regards,
+Synthetic Customer 006
+--alt-sample-006
+Content-Type: text/html; charset=UTF-8
+
+<html><body><p>Dear Support Team,</p><p>My SIP instalment in Parag Parikh Flexi Cap Fund dated 2026-01-12 is not showing in folio 10047514. Kindly check its status. PAN: GSPEQ0582O.</p><p>Regards,<br>Synthetic Customer 006</p></body></html>
+--alt-sample-006--

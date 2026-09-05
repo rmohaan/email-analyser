@@ -24,6 +24,7 @@ Rules:
 - Do not invent a PAN, folio, fund, date, reference, or transaction type.
 - Always return transactionDate as an object containing fromDate and toDate.
 - For an exact, unambiguous date, set fromDate and toDate to that same date.
+- If the email explicitly states a date period, set fromDate to its start and toDate to its end.
 - Resolve "last week" as the previous calendar week, Monday through Sunday, relative to the supplied analysis date.
 - Resolve "last month" as the complete previous calendar month relative to the supplied analysis date.
 - Convert dates to ISO-8601 yyyy-MM-dd. If no date or date range can be determined, set both fromDate and toDate to null.

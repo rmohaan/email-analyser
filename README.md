@@ -20,18 +20,23 @@ ollama pull phi4-mini
 mvn spring-boot:run
 ```
 
-The default endpoint is `POST http://localhost:8080/api/v1/email-analysis`.
+The default endpoint is `POST http://localhost:8080/api/v1/email-analysis`. Upload the
+email as a multipart field named `file`:
 
 ```bash
 curl -X POST http://localhost:8080/api/v1/email-analysis \
-  -H 'Content-Type: application/json' \
-  -d '{"emailBody":"I redeemed units from HDFC Balanced Advantage Fund on 2026-08-15. My PAN is ABCDE1234F and folio is 12345678. Please share the status."}'
+  -F 'file=@/path/to/customer-email.eml;type=message/rfc822'
 ```
+
+The service accepts `.eml` files up to 10 MB, extracts the subject and readable body,
+ignores attachments, and sends the extracted content for analysis.
 
 `entities.transactionDate` is always an object. Exact dates use the same value for
 `fromDate` and `toDate`; relative periods such as "last week" and "last month" use
-the corresponding previous calendar period, calculated from the date the API receives
-the email. "Last week" means Monday through Sunday of the previous calendar week.
+the corresponding previous calendar period, calculated from the email's reception date.
+For `.eml` uploads, the service uses the topmost valid `Received` header,
+then falls back to the message `Date` header and finally the upload date. "Last week"
+means Monday through Sunday of the previous calendar week.
 
 ## Local-memory settings
 
@@ -42,3 +47,18 @@ the email. "Last week" means Monday through Sunday of the previous calendar week
 ```bash
 mvn test
 ```
+
+### Functional tests
+
+The functional suite starts the API, uploads all 100 files from `email-samples`, invokes
+the configured Ollama model, and validates each response against the expected intent and
+entities in `src/test/resources/functional/expected-email-analysis.csv`.
+
+Make sure Ollama is running and the configured model is available, then run:
+
+```bash
+RUN_FUNCTIONAL_TESTS=true mvn -Dtest=EmailAnalysisFunctionalTest test
+```
+
+Functional tests are disabled during a normal `mvn test` because they make 100 real model
+requests and their runtime depends on the local Ollama configuration.

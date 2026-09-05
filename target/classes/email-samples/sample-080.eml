@@ -1,0 +1,19 @@
+Return-Path: <customer080@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.81])
+ by mx.support.example.com with ESMTPS id SAMPLE080;
+ Wed, 10 Jun 2026 10:15:00 +0530
+From: Synthetic Customer 080 <customer080@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Wed, 10 Jun 2026 04:15:00 +0000
+Message-ID: <sample-080-2026@example.com>
+Subject: Account servicing question #080
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Dear Support Team,
+
+I would like to update the communication address linked to folio 10633520. Please advise which documents are required.
+
+Regards,
+Synthetic Customer 080

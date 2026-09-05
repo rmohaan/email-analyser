@@ -1,0 +1,26 @@
+Return-Path: <customer002@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.3])
+ by mx.support.example.com with ESMTPS id SAMPLE002;
+ Mon, 05 Jan 2026 14:15:00 +0530
+From: Synthetic Customer 002 <customer002@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Mon, 05 Jan 2026 08:15:00 +0000
+Message-ID: <sample-002-2026@example.com>
+Subject: Capital gains statement required #002
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="alt-sample-002"
+
+--alt-sample-002
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+I need my capital gains statement for financial year 2025-26. The investment is in Nippon India Small Cap Fund, folio 10015838, and my PAN is CGPKO0194W.
+
+Regards,
+Synthetic Customer 002
+--alt-sample-002
+Content-Type: text/html; charset=UTF-8
+
+<html><body><p>Dear Support Team,</p><p>I need my capital gains statement for financial year 2025-26. The investment is in Nippon India Small Cap Fund, folio 10015838, and my PAN is CGPKO0194W.</p><p>Regards,<br>Synthetic Customer 002</p></body></html>
+--alt-sample-002--

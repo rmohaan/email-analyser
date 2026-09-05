@@ -1,0 +1,26 @@
+Return-Path: <customer078@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.79])
+ by mx.support.example.com with ESMTPS id SAMPLE078;
+ Sat, 06 Jun 2026 16:15:00 +0530
+From: Synthetic Customer 078 <customer078@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Sat, 06 Jun 2026 10:15:00 +0000
+Message-ID: <sample-078-2026@example.com>
+Subject: Tax statement request #078
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="alt-sample-078"
+
+--alt-sample-078
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+Please provide the tax statement for my investments in Axis Midcap Fund. My PAN is AAPAA7566A and folio number is 10617682.
+
+Regards,
+Synthetic Customer 078
+--alt-sample-078
+Content-Type: text/html; charset=UTF-8
+
+<html><body><p>Dear Support Team,</p><p>Please provide the tax statement for my investments in Axis Midcap Fund. My PAN is AAPAA7566A and folio number is 10617682.</p><p>Regards,<br>Synthetic Customer 078</p></body></html>
+--alt-sample-078--

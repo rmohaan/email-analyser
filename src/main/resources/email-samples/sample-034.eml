@@ -1,0 +1,26 @@
+Return-Path: <customer034@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.35])
+ by mx.support.example.com with ESMTPS id SAMPLE034;
+ Tue, 10 Mar 2026 18:15:00 +0530
+From: Synthetic Customer 034 <customer034@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Tue, 10 Mar 2026 12:15:00 +0000
+Message-ID: <sample-034-2026@example.com>
+Subject: Purchase confirmation pending #034
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="alt-sample-034"
+
+--alt-sample-034
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+I made a purchase in SBI Bluechip Fund last week, but I have not received confirmation. Please check reference TXN26003560786 for folio 10269246.
+
+Regards,
+Synthetic Customer 034
+--alt-sample-034
+Content-Type: text/html; charset=UTF-8
+
+<html><body><p>Dear Support Team,</p><p>I made a purchase in SBI Bluechip Fund last week, but I have not received confirmation. Please check reference TXN26003560786 for folio 10269246.</p><p>Regards,<br>Synthetic Customer 034</p></body></html>
+--alt-sample-034--

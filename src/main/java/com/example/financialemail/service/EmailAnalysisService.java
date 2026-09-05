@@ -7,7 +7,6 @@ import com.example.financialemail.validation.ExtractionValidator;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
 import java.time.LocalDate;
 
 @Service
@@ -16,21 +15,17 @@ public class EmailAnalysisService {
     private final String systemPrompt;
     private final ExtractionValidator extractionValidator;
     private final RelativeTransactionDateResolver relativeDateResolver;
-    private final Clock clock;
 
     public EmailAnalysisService(ChatClient chatClient, String financialEmailSystemPrompt,
                                 ExtractionValidator extractionValidator,
-                                RelativeTransactionDateResolver relativeDateResolver,
-                                Clock clock) {
+                                RelativeTransactionDateResolver relativeDateResolver) {
         this.chatClient = chatClient;
         this.systemPrompt = financialEmailSystemPrompt;
         this.extractionValidator = extractionValidator;
         this.relativeDateResolver = relativeDateResolver;
-        this.clock = clock;
     }
 
-    public EmailAnalysis analyze(String emailBody) {
-        LocalDate receptionDate = LocalDate.now(clock);
+    public EmailAnalysis analyze(String emailBody, LocalDate receptionDate) {
         EmailAnalysis response = chatClient.prompt()
                 .system(systemPrompt)
                 .user(user -> user.text("""

@@ -1,0 +1,18 @@
+Return-Path: <customer009@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.10])
+ by mx.support.example.com with ESMTPS id SAMPLE009;
+ Mon, 19 Jan 2026 18:15:00 +0530
+From: Synthetic Customer 009 <customer009@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Mon, 19 Jan 2026 12:15:00 +0000
+Message-ID: <sample-009-2026@example.com>
+Subject: Folio details verification #009
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<p>Dear Support Team,</p>
+<p>Could you confirm the registered details for folio 10071271 under SBI Bluechip Fund? My PAN is JBPTL0873V.</p>
+<p>Regards,<br>Synthetic Customer 009</p>
+</body></html>

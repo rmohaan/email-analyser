@@ -1,0 +1,28 @@
+Return-Path: <customer003@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.4])
+ by mx.support.example.com with ESMTPS id SAMPLE003;
+ Wed, 07 Jan 2026 16:15:00 +0530
+From: Synthetic Customer 003 <customer003@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Wed, 07 Jan 2026 10:15:00 +0000
+Message-ID: <sample-003-2026@example.com>
+Subject: Transaction status enquiry #003
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mixed-sample-003"
+
+--mixed-sample-003
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+I purchased 125 units of Axis Midcap Fund on 2026-01-06. Please tell me the current transaction status. The acknowledgement reference is TXN26000314187.
+
+Regards,
+Synthetic Customer 003
+--mixed-sample-003
+Content-Type: text/plain; name="notes.txt"
+Content-Disposition: attachment; filename="notes.txt"
+Content-Transfer-Encoding: base64
+
+VGhpcyBpcyBhIHN5bnRoZXRpYyBhdHRhY2htZW50Lg==
+--mixed-sample-003--

@@ -1,0 +1,18 @@
+Return-Path: <customer065@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.66])
+ by mx.support.example.com with ESMTPS id SAMPLE065;
+ Mon, 11 May 2026 10:15:00 +0530
+From: Synthetic Customer 065 <customer065@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Mon, 11 May 2026 04:15:00 +0000
+Message-ID: <sample-065-2026@example.com>
+Subject: Redemption proceeds status #065
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<p>Dear Support Team,</p>
+<p>I submitted a redemption request for Aditya Birla Sun Life Corporate Bond Fund last month. Please confirm the status and expected proceeds. Transaction reference: TXN26006807385.</p>
+<p>Regards,<br>Synthetic Customer 065</p>
+</body></html>

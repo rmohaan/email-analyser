@@ -3,6 +3,7 @@
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/api/ApiExceptionHandler.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/api/EmailAnalysisController.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/api/EmailAnalysisRequest.java
+/Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/api/InvalidEmailFileException.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/config/AiConfiguration.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/domain/CustomerIntent.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/domain/EmailAnalysis.java
@@ -10,6 +11,8 @@
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/domain/TransactionDate.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/domain/TransactionType.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/service/EmailAnalysisService.java
+/Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/service/EmlParser.java
+/Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/service/ParsedEmail.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/service/RelativeTransactionDateResolver.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/validation/ExtractionValidator.java
 /Users/nkrishnakumar/Documents/Mohaan/phi4-mini-financial-email-ai/src/main/java/com/example/financialemail/validation/InvalidExtractionException.java

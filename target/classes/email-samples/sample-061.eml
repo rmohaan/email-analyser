@@ -1,0 +1,18 @@
+Return-Path: <customer061@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.62])
+ by mx.support.example.com with ESMTPS id SAMPLE061;
+ Sun, 03 May 2026 12:15:00 +0530
+From: Synthetic Customer 061 <customer061@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Sun, 03 May 2026 06:15:00 +0000
+Message-ID: <sample-061-2026@example.com>
+Subject: Statement of account request #061
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><body>
+<p>Dear Support Team,</p>
+<p>Please send me the statement of account for folio 10483059 in Parag Parikh Flexi Cap Fund for the period 2026-01-01 to 2026-06-30. My PAN is JBPTL5917V.</p>
+<p>Regards,<br>Synthetic Customer 061</p>
+</body></html>

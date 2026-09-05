@@ -1,0 +1,26 @@
+Return-Path: <customer050@example.com>
+Received: from outbound.example.com (outbound.example.com [192.0.2.51])
+ by mx.support.example.com with ESMTPS id SAMPLE050;
+ Sat, 11 Apr 2026 10:15:00 +0530
+From: Synthetic Customer 050 <customer050@example.com>
+To: Mutual Fund Support <support@example.com>
+Date: Sat, 11 Apr 2026 04:15:00 +0000
+Message-ID: <sample-050-2026@example.com>
+Subject: Account servicing question #050
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="alt-sample-050"
+
+--alt-sample-050
+Content-Type: text/plain; charset=UTF-8
+
+Dear Support Team,
+
+I would like to update the communication address linked to folio 10395950. Please advise which documents are required.
+
+Regards,
+Synthetic Customer 050
+--alt-sample-050
+Content-Type: text/html; charset=UTF-8
+
+<html><body><p>Dear Support Team,</p><p>I would like to update the communication address linked to folio 10395950. Please advise which documents are required.</p><p>Regards,<br>Synthetic Customer 050</p></body></html>
+--alt-sample-050--
