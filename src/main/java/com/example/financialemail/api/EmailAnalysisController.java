@@ -1,6 +1,6 @@
 package com.example.financialemail.api;
 
-import com.example.financialemail.domain.EmailAnalysis;
+import com.example.financialemail.domain.EmailProcessingResult;
 import com.example.financialemail.service.EmlParser;
 import com.example.financialemail.service.EmailAnalysisService;
 import com.example.financialemail.service.ParsedEmail;
@@ -24,7 +24,7 @@ public class EmailAnalysisController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<EmailAnalysis> analyze(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<EmailProcessingResult> analyze(@RequestParam("file") MultipartFile file) {
         ParsedEmail email = emlParser.parse(file);
         return ResponseEntity.ok(emailAnalysisService.analyze(email.content(), email.receptionDate()));
     }

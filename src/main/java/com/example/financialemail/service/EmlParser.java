@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -25,7 +26,10 @@ import java.util.Properties;
 
 @Component
 public class EmlParser {
+    private static final long MAX_FILE_BYTES = 10L * 1024 * 1024;
     private static final int MAX_EXTRACTED_CHARACTERS = 200_000;
+    private static final int MAX_MIME_DEPTH = 30;
+    private static final int MAX_MIME_PARTS = 500;
     private static final List<DateTimeFormatter> RECEIVED_DATE_FORMATS = List.of(
             DateTimeFormatter.RFC_1123_DATE_TIME,
             DateTimeFormatter.ofPattern("EEE, d MMM uuuu HH:mm:ss xx", Locale.ENGLISH),
@@ -39,10 +43,10 @@ public class EmlParser {
     public ParsedEmail parse(MultipartFile file) {
         validate(file);
 
-        try {
-            MimeMessage message = new MimeMessage(Session.getInstance(new Properties()), file.getInputStream());
+        try (InputStream inputStream = file.getInputStream()) {
+            MimeMessage message = new MimeMessage(Session.getInstance(new Properties()), inputStream);
             BodyContent bodyContent = new BodyContent();
-            collectBody(message, bodyContent);
+            collectBody(message, bodyContent, 0, new PartCounter());
 
             String body = bodyContent.preferredText();
             if (body.isBlank()) {
@@ -57,7 +61,9 @@ public class EmlParser {
                 throw new InvalidEmailFileException("Extracted email content must not exceed 200,000 characters");
             }
             return new ParsedEmail(extracted.strip(), resolveReceptionDate(message));
-        } catch (MessagingException | IOException exception) {
+        } catch (InvalidEmailFileException exception) {
+            throw exception;
+        } catch (MessagingException | IOException | RuntimeException exception) {
             throw new InvalidEmailFileException("The uploaded file is not a readable .eml message", exception);
         }
     }
@@ -81,6 +87,9 @@ public class EmlParser {
     }
 
     private LocalDate parseReceivedHeader(String header) {
+        if (header == null || header.isBlank()) {
+            return null;
+        }
         int separator = header.lastIndexOf(';');
         if (separator < 0 || separator == header.length() - 1) {
             return null;
@@ -107,35 +116,59 @@ public class EmlParser {
         if (filename == null || !filename.toLowerCase(Locale.ROOT).endsWith(".eml")) {
             throw new InvalidEmailFileException("Only .eml files are supported");
         }
+        if (file.getSize() > MAX_FILE_BYTES) {
+            throw new InvalidEmailFileException("The .eml file must not exceed 10 MB");
+        }
     }
 
-    private void collectBody(Part part, BodyContent bodyContent) throws MessagingException, IOException {
+    private void collectBody(Part part, BodyContent bodyContent, int depth, PartCounter counter)
+            throws MessagingException, IOException {
+        if (depth > MAX_MIME_DEPTH) {
+            throw new InvalidEmailFileException("The .eml MIME structure is nested too deeply");
+        }
+        if (++counter.count > MAX_MIME_PARTS) {
+            throw new InvalidEmailFileException("The .eml message contains too many MIME parts");
+        }
         String disposition = part.getDisposition();
         if (Part.ATTACHMENT.equalsIgnoreCase(disposition)
                 || (part.getFileName() != null && !Part.INLINE.equalsIgnoreCase(disposition))) {
             return;
         }
         if (part.isMimeType("text/plain")) {
-            bodyContent.plainText.add((String) part.getContent());
+            addTextContent(part, bodyContent.plainText);
             return;
         }
         if (part.isMimeType("text/html")) {
-            bodyContent.htmlText.add(htmlToText((String) part.getContent()));
+            Object content = part.getContent();
+            if (content instanceof String html) {
+                bodyContent.htmlText.add(htmlToText(html));
+            }
             return;
         }
         if (part.isMimeType("multipart/*")) {
-            Multipart multipart = (Multipart) part.getContent();
+            Object content = part.getContent();
+            if (!(content instanceof Multipart multipart)) {
+                throw new InvalidEmailFileException("A multipart MIME section could not be decoded");
+            }
             for (int index = 0; index < multipart.getCount(); index++) {
                 BodyPart bodyPart = multipart.getBodyPart(index);
-                collectBody(bodyPart, bodyContent);
+                collectBody(bodyPart, bodyContent, depth + 1, counter);
             }
             return;
         }
         if (part.isMimeType("message/rfc822")) {
             Object nestedMessage = part.getContent();
             if (nestedMessage instanceof Message message) {
-                collectBody(message, bodyContent);
+                collectBody(message, bodyContent, depth + 1, counter);
             }
+        }
+    }
+
+    private void addTextContent(Part part, List<String> destination)
+            throws MessagingException, IOException {
+        Object content = part.getContent();
+        if (content instanceof String text) {
+            destination.add(text);
         }
     }
 
@@ -167,5 +200,9 @@ public class EmlParser {
                     .reduce((first, second) -> first + "\n\n" + second)
                     .orElse("");
         }
+    }
+
+    private static final class PartCounter {
+        private int count;
     }
 }

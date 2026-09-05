@@ -1,0 +1,44 @@
+flowchart TD
+    A([Email classified and extracted]) --> B{Primary API available?}
+    B -- No, unrelated or unknown --> U([UNROUTABLE<br/>No API call])
+    B -- Yes, or ambiguous transaction defaults to API 1 --> C[INITIAL_CALL<br/>Original or default 7-day window]
+
+    C --> N[Normalize API-specific payload<br/>into common adapter response]
+    N --> V[Validate transport, HTTP, body,<br/>schema and response API identity]
+    V --> D{Filter relevant records<br/>and evaluate answer completeness}
+    D -- MATCH_FOUND --> OK([COMPLETED])
+    D -- PARTIAL_MATCH --> PARTIAL([PARTIAL_RESULT<br/>No broad search])
+    D -- Retryable or fatal failure --> ERROR([TECHNICAL_FAILURE<br/>No broad search])
+    D -- Valid NO_MATCH only --> E[DATE_EXPANSION]
+
+    E --> E1[Same API: preceding 30-day window]
+    E1 --> E2{Evaluate response}
+    E2 -- Match --> OK
+    E2 -- Technical failure --> ERROR
+    E2 -- No match --> E3[Same API: following 30-day window<br/>Capped at processing date]
+    E3 --> E4{Evaluate response}
+    E4 -- Match --> OK
+    E4 -- Technical failure --> ERROR
+    E4 -- No match --> F{Request specific?}
+
+    F -- Yes --> NF([NOT_FOUND<br/>Do not search unrelated APIs])
+    F -- No, ambiguous transaction --> G[BREADTH_SEARCH<br/>Combined expanded window]
+    G --> G1[API 2: SIP]
+    G1 -- No match --> G2[API 3: STP / SWP / Prospect]
+    G2 -- No match --> G3[API 4: NFT modifications]
+    G1 -- Match --> OK
+    G2 -- Match --> OK
+    G3 -- Match --> OK
+    G3 -- No match --> NF
+    G3 -- Any unresolved technical failure --> ERROR
+
+    classDef start fill:#0f766e,color:#fff,stroke:#134e4a,stroke-width:2px;
+    classDef decision fill:#fef3c7,color:#78350f,stroke:#d97706,stroke-width:2px;
+    classDef action fill:#dbeafe,color:#1e3a8a,stroke:#2563eb,stroke-width:2px;
+    classDef success fill:#dcfce7,color:#14532d,stroke:#16a34a,stroke-width:2px;
+    classDef failure fill:#fee2e2,color:#7f1d1d,stroke:#dc2626,stroke-width:2px;
+    class A start;
+    class B,D,E2,E4,F decision;
+    class C,N,V,E,E1,E3,G,G1,G2,G3 action;
+    class OK,PARTIAL success;
+    class U,ERROR,NF failure;

@@ -6,7 +6,7 @@ From: Synthetic Customer 030 <customer030@example.com>
 To: Mutual Fund Support <support@example.com>
 Date: Mon, 02 Mar 2026 04:15:00 +0000
 Message-ID: <sample-030-2026@example.com>
-Subject: Account servicing question #030
+Subject: Bank account modification request #030
 MIME-Version: 1.0
 Content-Type: multipart/alternative; boundary="alt-sample-030"
 
@@ -15,12 +15,12 @@ Content-Type: text/plain; charset=UTF-8
 
 Dear Support Team,
 
-I would like to update the communication address linked to folio 10237570. Please advise which documents are required.
+I need to replace the registered bank account for folio 10237570. Please share the process and documents required for the bank modification.
 
 Regards,
 Synthetic Customer 030
 --alt-sample-030
 Content-Type: text/html; charset=UTF-8
 
-<html><body><p>Dear Support Team,</p><p>I would like to update the communication address linked to folio 10237570. Please advise which documents are required.</p><p>Regards,<br>Synthetic Customer 030</p></body></html>
+<html><body><p>Dear Support Team,</p><p>I need to replace the registered bank account for folio 10237570. Please share the process and documents required for the bank modification.</p><p>Regards,<br>Synthetic Customer 030</p></body></html>
 --alt-sample-030--

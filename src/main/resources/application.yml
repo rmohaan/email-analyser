@@ -6,6 +6,12 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   ai:
+    retry:
+      max-attempts: ${AI_RETRY_MAX_ATTEMPTS:3}
+      backoff:
+        initial-interval: ${AI_RETRY_INITIAL_INTERVAL:500ms}
+        max-interval: ${AI_RETRY_MAX_INTERVAL:2s}
+        multiplier: 2
     ollama:
       base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
       chat:
@@ -17,3 +23,17 @@ spring:
 
 server:
   port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+application:
+  mock-downstream:
+    # These values select mock payload scenarios. The workflow outcome is derived
+    # from the generated payload; it is never trusted as an API decision.
+    api-1-outcome: ${MOCK_API_1_OUTCOME:MATCH_FOUND}
+    api-2-outcome: ${MOCK_API_2_OUTCOME:MATCH_FOUND}
+    api-3-outcome: ${MOCK_API_3_OUTCOME:MATCH_FOUND}
+    api-4-outcome: ${MOCK_API_4_OUTCOME:MATCH_FOUND}

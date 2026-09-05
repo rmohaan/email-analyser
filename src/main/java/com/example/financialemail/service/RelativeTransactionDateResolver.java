@@ -16,6 +16,9 @@ public class RelativeTransactionDateResolver {
     private static final Pattern LAST_MONTH = Pattern.compile("\\blast\\s+month\\b", Pattern.CASE_INSENSITIVE);
 
     public Optional<TransactionDate> resolve(String emailBody, LocalDate receptionDate) {
+        if (emailBody == null || emailBody.isBlank() || receptionDate == null) {
+            return Optional.empty();
+        }
         boolean containsLastWeek = LAST_WEEK.matcher(emailBody).find();
         boolean containsLastMonth = LAST_MONTH.matcher(emailBody).find();
 

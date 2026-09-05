@@ -68,6 +68,16 @@ class EmlParserTest {
     }
 
     @Test
+    void rejectsFilesLargerThanTheConfiguredMaximumBeforeParsing() {
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "message.eml", "message/rfc822", new byte[10 * 1024 * 1024 + 1]);
+
+        assertThatThrownBy(() -> parser.parse(file))
+                .isInstanceOf(InvalidEmailFileException.class)
+                .hasMessage("The .eml file must not exceed 10 MB");
+    }
+
+    @Test
     void allBundledEmailSamplesAreReadable() throws Exception {
         Path samplesDirectory = Path.of("src/main/resources/email-samples");
         List<Path> samples;

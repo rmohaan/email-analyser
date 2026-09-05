@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-labelledby="title description">
+  <title id="title">Post-classification response-driven workflow</title>
+  <desc id="description">Initial API call, adapter response normalization and validation, deterministic record evaluation, date expansion, and breadth search for ambiguous requests.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title{font:700 34px Arial,sans-serif;fill:#0f172a}.subtitle{font:18px Arial,sans-serif;fill:#475569}
+      .node{stroke-width:2.5}.start{fill:#0f766e;stroke:#134e4a}.decision{fill:#fef3c7;stroke:#d97706}
+      .action{fill:#dbeafe;stroke:#2563eb}.success{fill:#dcfce7;stroke:#16a34a}.failure{fill:#fee2e2;stroke:#dc2626}
+      .label{font:700 18px Arial,sans-serif;fill:#0f172a;text-anchor:middle}.small{font:15px Arial,sans-serif;fill:#334155;text-anchor:middle}
+      .light{fill:#fff}.line{fill:none;stroke:#475569;stroke-width:2.5;marker-end:url(#arrow)}
+      .edge{font:14px Arial,sans-serif;fill:#334155}.note{font:14px Arial,sans-serif;fill:#475569}
+    </style>
+  </defs>
+
+  <text x="800" y="48" class="title" text-anchor="middle">Post-classification API workflow</text>
+  <text x="800" y="78" class="subtitle" text-anchor="middle">Search expansion occurs only after a valid NO_MATCH response</text>
+
+  <rect x="590" y="105" width="420" height="70" rx="35" class="node start"/>
+  <text x="800" y="148" class="label light">Email classified and extracted</text>
+
+  <path d="M800 175 L800 213" class="line"/>
+  <polygon points="800,210 990,280 800,350 610,280" class="node decision"/>
+  <text x="800" y="275" class="label">Primary API available?</text>
+  <text x="800" y="300" class="small">Ambiguous transaction defaults to API 1</text>
+
+  <path d="M610 280 L380 280" class="line"/>
+  <text x="480" y="266" class="edge">No</text>
+  <rect x="80" y="235" width="300" height="90" rx="18" class="node failure"/>
+  <text x="230" y="274" class="label">UNROUTABLE</text>
+  <text x="230" y="299" class="small">No downstream API call</text>
+
+  <path d="M800 350 L800 390" class="line"/>
+  <text x="815" y="376" class="edge">Yes</text>
+  <rect x="570" y="390" width="460" height="90" rx="18" class="node action"/>
+  <text x="800" y="428" class="label">INITIAL_CALL</text>
+  <text x="800" y="453" class="small">Extracted window or default 7-day lookback</text>
+
+  <path d="M800 480 L800 515" class="line"/>
+  <polygon points="800,515 1010,580 800,645 590,580" class="node decision"/>
+  <text x="800" y="575" class="label">Normalize and evaluate adapter response</text>
+  <text x="800" y="600" class="small">Validate contract · filter records · check answer completeness</text>
+
+  <path d="M1010 580 L1240 580" class="line"/>
+  <text x="1110" y="566" class="edge">MATCH_FOUND</text>
+  <rect x="1240" y="535" width="280" height="90" rx="45" class="node success"/>
+  <text x="1380" y="588" class="label">COMPLETED</text>
+
+  <path d="M955 620 C1080 690 1190 690 1260 690" class="line"/>
+  <text x="1070" y="681" class="edge">PARTIAL_MATCH</text>
+  <rect x="1260" y="650" width="260" height="80" rx="20" class="node success"/>
+  <text x="1390" y="699" class="label">PARTIAL_RESULT</text>
+
+  <path d="M590 580 L380 580" class="line"/>
+  <text x="430" y="566" class="edge">Retryable / fatal / invalid</text>
+  <rect x="80" y="535" width="300" height="90" rx="18" class="node failure"/>
+  <text x="230" y="574" class="label">TECHNICAL_FAILURE</text>
+  <text x="230" y="599" class="small">No search expansion</text>
+
+  <path d="M800 645 L800 685" class="line"/>
+  <text x="814" y="670" class="edge">Valid NO_MATCH only</text>
+  <rect x="525" y="685" width="550" height="105" rx="18" class="node action"/>
+  <text x="800" y="723" class="label">DATE_EXPANSION — same API</text>
+  <text x="800" y="749" class="small">1. Previous adjacent 30 days</text>
+  <text x="800" y="772" class="small">2. Following adjacent 30 days, capped at processing date</text>
+
+  <path d="M800 790 L800 825" class="line"/>
+  <polygon points="800,825 990,885 800,945 610,885" class="node decision"/>
+  <text x="800" y="880" class="label">Expanded result?</text>
+  <text x="800" y="905" class="small">Stop immediately on match or failure</text>
+
+  <path d="M990 885 C1150 885 1220 790 1380 730" class="line"/>
+  <text x="1125" y="855" class="edge">Match</text>
+  <path d="M610 885 C440 885 350 720 230 625" class="line"/>
+  <text x="430" y="840" class="edge">Technical failure</text>
+
+  <path d="M800 945 L800 980" class="line"/>
+  <polygon points="800,980 955,1030 800,1080 645,1030" class="node decision"/>
+  <text x="800" y="1036" class="label">Request specific?</text>
+
+  <path d="M645 1030 L420 1030" class="line"/>
+  <text x="525" y="1016" class="edge">Yes</text>
+  <rect x="120" y="985" width="300" height="90" rx="45" class="node failure"/>
+  <text x="270" y="1038" class="label">NOT_FOUND</text>
+
+  <path d="M955 1030 L1085 1030" class="line"/>
+  <text x="975" y="1016" class="edge">No — ambiguous</text>
+  <rect x="1085" y="970" width="435" height="120" rx="18" class="node action"/>
+  <text x="1302" y="1005" class="label">BREADTH_SEARCH</text>
+  <text x="1302" y="1032" class="small">API 2: SIP → API 3: STP/SWP/Prospect</text>
+  <text x="1302" y="1056" class="small">→ API 4: NFT modifications</text>
+  <text x="1302" y="1078" class="small">Stop on first usable result · maximum 6 calls</text>
+
+  <text x="80" y="1160" class="note">Terminal safeguards: UNKNOWN makes no call · PARTIAL_MATCH does not broaden · technical errors never masquerade as NO_MATCH.</text>
+</svg>

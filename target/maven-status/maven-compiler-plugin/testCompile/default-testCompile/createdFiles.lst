@@ -1,7 +1,15 @@
 com/example/financialemail/validation/PanValidatorTest.class
 com/example/financialemail/functional/EmailAnalysisFunctionalTest.class
+com/example/financialemail/domain/TransactionTypeTest.class
+com/example/financialemail/validation/ExtractionValidatorTest.class
+com/example/financialemail/routing/RequestRouterTest.class
+com/example/financialemail/domain/RequestClassificationEnumTest.class
+com/example/financialemail/workflow/ApiResponseEvaluatorTest.class
+com/example/financialemail/service/RelativeTransactionDateResolverTest.class
+com/example/financialemail/workflow/PostClassificationWorkflowTest.class
+com/example/financialemail/workflow/DateWindowPlannerTest.class
+com/example/financialemail/workflow/PostClassificationWorkflowTest$1.class
 com/example/financialemail/api/EmailAnalysisControllerTest.class
 com/example/financialemail/functional/EmailAnalysisFunctionalTest$ExpectedAnalysis.class
 com/example/financialemail/service/EmlParserTest.class
-com/example/financialemail/validation/ExtractionValidatorTest.class
-com/example/financialemail/service/RelativeTransactionDateResolverTest.class
+com/example/financialemail/workflow/PostClassificationWorkflowTest$ScriptedClient.class

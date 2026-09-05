@@ -1,6 +1,8 @@
 package com.example.financialemail.functional;
 
 import com.example.financialemail.domain.EmailAnalysis;
+import com.example.financialemail.domain.EmailProcessingResult;
+import com.example.financialemail.workflow.WorkflowState;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +48,16 @@ class EmailAnalysisFunctionalTest {
     static Stream<ExpectedAnalysis> expectedAnalyses() throws IOException {
         List<String> lines = Files.readAllLines(EXPECTATIONS);
         assertThat(lines).as("functional expectation rows plus header").hasSize(101);
-        return lines.stream().skip(1).map(ExpectedAnalysis::fromCsv);
+        String selectedSample = System.getenv().getOrDefault(
+                "FUNCTIONAL_SAMPLE", "sample-001.eml");
+        ExpectedAnalysis expectation = lines.stream()
+                .skip(1)
+                .map(ExpectedAnalysis::fromCsv)
+                .filter(expected -> expected.filename().equals(selectedSample))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No functional expectation found for " + selectedSample));
+        return Stream.of(expectation);
     }
 
     @ParameterizedTest(name = "{0}")
@@ -64,17 +75,18 @@ class EmailAnalysisFunctionalTest {
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        ResponseEntity<EmailAnalysis> response = restTemplate.exchange(
+        ResponseEntity<EmailProcessingResult> response = restTemplate.exchange(
                 "http://localhost:" + port + "/api/v1/email-analysis",
                 HttpMethod.POST,
                 new HttpEntity<>(requestBody, requestHeaders),
-                EmailAnalysis.class);
+                EmailProcessingResult.class);
 
         assertThat(response.getStatusCode().is2xxSuccessful())
                 .as("HTTP response for %s: %s", expected.filename(), response)
                 .isTrue();
 
-        EmailAnalysis actual = Objects.requireNonNull(response.getBody());
+        EmailProcessingResult processingResult = Objects.requireNonNull(response.getBody());
+        EmailAnalysis actual = processingResult.analysis();
         assertSoftly(softly -> {
             softly.assertThat(actual.intent().name()).as("intent").isEqualTo(expected.intent());
             softly.assertThat(actual.confidence()).as("confidence").isBetween(0.0, 1.0);
@@ -90,6 +102,14 @@ class EmailAnalysisFunctionalTest {
                     .isEqualTo(expected.toDate());
             softly.assertThat(actual.entities().transactionReference()).as("transactionReference")
                     .isEqualTo(expected.transactionReference());
+            softly.assertThat(actual.requestClassification().category().name()).as("request category")
+                    .isEqualTo(expected.requestCategory());
+            softly.assertThat(actual.requestClassification().subtype().name()).as("request subtype")
+                    .isEqualTo(expected.requestSubtype());
+            WorkflowState expectedState = "UNKNOWN".equals(expected.requestCategory())
+                    ? WorkflowState.UNROUTABLE : WorkflowState.COMPLETED;
+            softly.assertThat(processingResult.workflow().finalState()).as("workflow final state")
+                    .isEqualTo(expectedState);
         });
     }
 
@@ -102,16 +122,19 @@ class EmailAnalysisFunctionalTest {
             String transactionType,
             LocalDate fromDate,
             LocalDate toDate,
-            String transactionReference) {
+            String transactionReference,
+            String requestCategory,
+            String requestSubtype) {
 
         static ExpectedAnalysis fromCsv(String line) {
             String[] values = line.split(",", -1);
-            if (values.length != 9) {
+            if (values.length != 11) {
                 throw new IllegalArgumentException("Invalid functional expectation: " + line);
             }
             return new ExpectedAnalysis(values[0], values[1], nullIfBlank(values[2]),
                     nullIfBlank(values[3]), nullIfBlank(values[4]), values[5],
-                    dateIfPresent(values[6]), dateIfPresent(values[7]), nullIfBlank(values[8]));
+                    dateIfPresent(values[6]), dateIfPresent(values[7]), nullIfBlank(values[8]),
+                    values[9], values[10]);
         }
 
         private static String nullIfBlank(String value) {
